@@ -17,15 +17,24 @@ defmodule RotationalCipher do
   end
 
   defp next_letter([head|tail],shift,answer) do
+    lower_case = String.downcase(head)
     alphabet = for n <- ?a..?z, do: << n :: utf8 >>
-    letter_index = Enum.find_index(alphabet, fn(x) -> x == head end)
-    total_count = letter_index + shift
-    cond do
-      total_count < 26 ->
-        cipher_letter = Enum.at(alphabet, total_count)
-      total_count == 26 ->
-        cipher_letter = head
+    letter_index = Enum.find_index(alphabet, fn(x) -> x == lower_case end)
+    if letter_index == nil do
+      next_letter(tail,shift,answer <> head)
+    else
+      cond do
+        letter_index + shift < 26 ->
+          cipher_letter = Enum.at(alphabet, letter_index + shift)
+        letter_index + shift >= 26 ->
+          cipher_letter = Enum.at(alphabet, letter_index + shift - 26)
+      end
+      case lower_case == head do
+        true ->
+          next_letter(tail,shift,answer <> cipher_letter)
+        false ->
+          next_letter(tail,shift,answer <> String.upcase(cipher_letter))
+      end
     end
-    next_letter(tail,shift,answer <> cipher_letter)
   end
 end
