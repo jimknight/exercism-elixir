@@ -15,28 +15,28 @@ defmodule RotationalCipherTest do
     assert RotationalCipher.rotate(plaintext, shift) == "b"
   end
 
-  @tag :pending
+  # @tag :pending
   test "rotate a by 26, same output as input" do
     plaintext = "a"
     shift = 26
     assert RotationalCipher.rotate(plaintext, shift) == "a"
   end
 
-  @tag :pending
+  # @tag :pending
   test "rotate a by 0, same output as input" do
     plaintext = "a"
     shift = 0
     assert RotationalCipher.rotate(plaintext, shift) == "a"
   end
 
-  @tag :pending
+  # @tag :pending
   test "rotate m by 13" do
     plaintext = "m"
     shift = 13
     assert RotationalCipher.rotate(plaintext, shift) == "z"
   end
 
-  @tag :pending
+  # @tag :pending
   test "rotate n by 13 with wrap around alphabet" do
     plaintext = "n"
     shift = 13
